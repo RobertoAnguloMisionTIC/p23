@@ -43,7 +43,18 @@ public class CategoryImplementation implements CategoryService{
     public Category update(Category category) {
         if (category != null && category.getId() != null){
             if (categoryRepository.existsById(category.getId())){
-                return categoryRepository.save(category);
+                Optional<Category> oldCategory = categoryRepository.findById(category.getId());
+                Category editedCategory = oldCategory.get();
+                if (category.getName() != null){
+                    editedCategory.setName(category.getName());
+                }
+                if (category.getDescription() != null){
+                    editedCategory.setDescription(category.getDescription());
+                }
+                if (category.getBoxes() != null){
+                    editedCategory.setBoxes(category.getBoxes());
+                }
+                return categoryRepository.save(editedCategory);
             }else{
                 return category;
             }

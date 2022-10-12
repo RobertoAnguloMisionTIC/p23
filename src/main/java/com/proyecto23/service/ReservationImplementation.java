@@ -43,7 +43,27 @@ public class ReservationImplementation implements ReservationService{
     public Reservation update(Reservation reservation) {
         if (reservation != null && reservation.getIdReservation() != null){
             if (reservationRepository.existsById(reservation.getIdReservation())){
-                return reservationRepository.save(reservation);
+                Optional<Reservation> oldReservation = reservationRepository.findById(reservation.getIdReservation());
+                Reservation editedReservation = oldReservation.get();
+                if (reservation.getStartDate() != null){
+                    editedReservation.setStartDate(reservation.getStartDate());
+                }
+                if (reservation.getDevolutionDate() != null){
+                    editedReservation.setDevolutionDate(reservation.getDevolutionDate());
+                }
+                if (reservation.getStatus() != null){
+                    editedReservation.setStatus(reservation.getStatus());
+                }
+                if (reservation.getBox() != null){
+                    editedReservation.setBox(reservation.getBox());
+                }
+                if (reservation.getClient() != null){
+                    editedReservation.setClient(reservation.getClient());
+                }
+                if (reservation.getScore() != null){
+                    editedReservation.setScore(reservation.getScore());
+                }
+                return reservationRepository.save(editedReservation);
             }else{
                 return reservation;
             }

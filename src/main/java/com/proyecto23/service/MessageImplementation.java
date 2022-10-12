@@ -43,7 +43,18 @@ public class MessageImplementation implements MessageService{
     public Message update(Message message) {
         if (message != null && message.getIdMessage() != null){
             if (messageRepository.existsById(message.getIdMessage())){
-                return messageRepository.save(message);
+                Optional<Message> oldMessage = messageRepository.findById(message.getIdMessage());
+                Message editedMessage = oldMessage.get();
+                if (message.getMessageText() != null){
+                    editedMessage.setMessageText(message.getMessageText());
+                }
+                if (message.getBox() != null){
+                    editedMessage.setBox(message.getBox());
+                }
+                if (message.getClient() != null){
+                    editedMessage.setClient(message.getClient());
+                }
+                return messageRepository.save(editedMessage);
             }else{
                 return message;
             }

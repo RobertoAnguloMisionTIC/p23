@@ -43,7 +43,27 @@ public class ClientImplementation implements ClientService{
     public Client update(Client client) {
         if (client != null && client.getIdClient() != null){
             if (clientRepository.existsById(client.getIdClient())){
-                return clientRepository.save(client);
+                Optional<Client> oldClient = clientRepository.findById(client.getIdClient());
+                Client editedClient = oldClient.get();
+                if (client.getEmail() != null){
+                    editedClient.setName(client.getEmail());
+                }
+                if (client.getPassword() != null){
+                    editedClient.setPassword(client.getPassword());
+                }
+                if (client.getName() != null){
+                    editedClient.setName(client.getName());
+                }
+                if (client.getAge() != null){
+                    editedClient.setAge(client.getAge());
+                }
+                if (client.getMessages() != null){
+                    editedClient.setMessages(client.getMessages());
+                }
+                if (client.getReservations() != null){
+                    editedClient.setReservations(client.getReservations());
+                }
+                return clientRepository.save(editedClient);
             }else{
                 return client;
             }

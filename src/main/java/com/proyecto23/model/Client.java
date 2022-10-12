@@ -29,9 +29,4 @@ public class Client {
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "client")
     @JsonIgnoreProperties("client")
     private List<Reservation> reservations;
-
-//    @ManyToOne
-//    @JoinColumn(name = "idMessages")
-//    @JsonIgnoreProperties("boxes")
-//    private Category category;
 }

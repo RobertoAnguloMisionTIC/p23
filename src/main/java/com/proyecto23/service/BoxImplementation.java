@@ -43,7 +43,30 @@ public class BoxImplementation implements BoxService{
     public Box update(Box box) {
         if (box != null && box.getId() != null){
             if (boxRepository.existsById(box.getId())){
-                return boxRepository.save(box);
+                Optional<Box> oldBox = boxRepository.findById(box.getId());
+                Box editedBox = oldBox.get();
+                if (box.getName() != null){
+                    editedBox.setName(box.getName());
+                }
+                if (box.getLocation() != null){
+                    editedBox.setLocation(box.getLocation());
+                }
+                if (box.getCapacity() != 0){
+                    editedBox.setCapacity(box.getCapacity());
+                }
+                if (box.getDescription() != null){
+                    editedBox.setDescription(box.getDescription());
+                }
+                if (box.getCategory() != null){
+                    editedBox.setCategory(box.getCategory());
+                }
+                if (box.getMessages() != null){
+                    editedBox.setMessages(box.getMessages());
+                }
+                if (box.getReservations() != null){
+                    editedBox.setReservations(box.getReservations());
+                }
+                return boxRepository.save(editedBox);
             }else{
                 return box;
             }
