@@ -10,6 +10,6 @@ public interface MessageService {
     public Message create(Message message);
     public Optional<Message> getMessage(Integer id);
     public List<Message> messages();
-    public void update(Message message);
-    public void delete(Integer id);
+    public Message update(Message message);
+    public boolean delete(Integer id);
 }

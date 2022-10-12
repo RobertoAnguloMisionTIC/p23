@@ -40,22 +40,24 @@ public class BoxImplementation implements BoxService{
     }
 
     @Override
-//    @Transactional
-    public void update(Box box) {
-        if (boxRepository.existsById(box.getId())){
-            boxRepository.save(box);
-            return;
-        }else
-            return;
+    public Box update(Box box) {
+        if (box != null && box.getId() != null){
+            if (boxRepository.existsById(box.getId())){
+                return boxRepository.save(box);
+            }else{
+                return box;
+            }
+        }else {
+            return box;
+        }
     }
 
     @Override
-//    @Transactional
-    public void delete(Integer id) {
+    public boolean delete(Integer id) {
         if(boxRepository.existsById(id)){
             boxRepository.deleteById(id);
-            return;
+            return true;
         }else
-            return;
+            return false;
     }
 }

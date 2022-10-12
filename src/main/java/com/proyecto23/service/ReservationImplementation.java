@@ -16,7 +16,6 @@ public class ReservationImplementation implements ReservationService{
     private ReservationRepository reservationRepository;
 
     @Override
-    @Transactional
     public Reservation create(Reservation reservation) {
         if (reservation.getIdReservation() == null){
             return reservationRepository.save(reservation);
@@ -41,22 +40,24 @@ public class ReservationImplementation implements ReservationService{
     }
 
     @Override
-    @Transactional
-    public void update(Reservation reservation) {
-        if (reservationRepository.existsById(reservation.getIdReservation())){
-            reservationRepository.save(reservation);
-            return;
-        }else
-            return;
+    public Reservation update(Reservation reservation) {
+        if (reservation != null && reservation.getIdReservation() != null){
+            if (reservationRepository.existsById(reservation.getIdReservation())){
+                return reservationRepository.save(reservation);
+            }else{
+                return reservation;
+            }
+        }else {
+            return reservation;
+        }
     }
 
     @Override
-    @Transactional
-    public void delete(Integer id) {
+    public boolean delete(Integer id) {
         if(reservationRepository.existsById(id)){
             reservationRepository.deleteById(id);
-            return;
+            return true;
         }else
-            return;
+            return false;
     }
 }

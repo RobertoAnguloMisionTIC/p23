@@ -16,7 +16,6 @@ public class ClientImplementation implements ClientService{
     private ClientRepository clientRepository;
 
     @Override
-    @Transactional
     public Client create(Client client) {
         if (client.getIdClient() == null){
             return clientRepository.save(client);
@@ -41,22 +40,24 @@ public class ClientImplementation implements ClientService{
     }
 
     @Override
-    @Transactional
-    public void update(Client client) {
-        if (clientRepository.existsById(client.getIdClient())){
-            clientRepository.save(client);
-            return;
-        }else
-            return;
+    public Client update(Client client) {
+        if (client != null && client.getIdClient() != null){
+            if (clientRepository.existsById(client.getIdClient())){
+                return clientRepository.save(client);
+            }else{
+                return client;
+            }
+        }else {
+            return client;
+        }
     }
 
     @Override
-    @Transactional
-    public void delete(Integer id) {
+    public boolean delete(Integer id) {
         if(clientRepository.existsById(id)){
             clientRepository.deleteById(id);
-            return;
+            return true;
         }else
-            return;
+            return false;
     }
 }

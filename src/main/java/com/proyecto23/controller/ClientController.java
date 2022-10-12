@@ -29,11 +29,13 @@ public class ClientController {
     }
 
     @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
     public void updateClient(@RequestBody Client client){
         clientImplementation.update(client);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteClient(@PathVariable ("id") Integer id){
         clientImplementation.delete(id);
     }

@@ -29,11 +29,13 @@ public class ReservationController {
     }
 
     @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
     public void updateReservation(@RequestBody Reservation reservation){
         reservationImplementation.update(reservation);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteReservation(@PathVariable ("id") Integer id){
         reservationImplementation.delete(id);
     }

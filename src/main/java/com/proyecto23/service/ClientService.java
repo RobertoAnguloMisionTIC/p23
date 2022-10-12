@@ -10,6 +10,6 @@ public interface ClientService {
     public Client create(Client client);
     public Optional<Client> getClient(Integer id);
     public List<Client> clients();
-    public void update(Client client);
-    public void delete(Integer id);
+    public Client update(Client client);
+    public boolean delete(Integer id);
 }

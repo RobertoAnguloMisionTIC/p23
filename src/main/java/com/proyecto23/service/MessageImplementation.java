@@ -16,7 +16,6 @@ public class MessageImplementation implements MessageService{
     private MessageRepository messageRepository;
 
     @Override
-    @Transactional
     public Message create(Message message) {
         if (message.getIdMessage() == null){
             return messageRepository.save(message);
@@ -41,22 +40,24 @@ public class MessageImplementation implements MessageService{
     }
 
     @Override
-    @Transactional
-    public void update(Message message) {
-        if (messageRepository.existsById(message.getIdMessage())){
-            messageRepository.save(message);
-            return;
-        }else
-            return;
+    public Message update(Message message) {
+        if (message != null && message.getIdMessage() != null){
+            if (messageRepository.existsById(message.getIdMessage())){
+                return messageRepository.save(message);
+            }else{
+                return message;
+            }
+        }else {
+            return message;
+        }
     }
 
     @Override
-    @Transactional
-    public void delete(Integer id) {
+    public boolean delete(Integer id) {
         if(messageRepository.existsById(id)){
             messageRepository.deleteById(id);
-            return;
+            return true;
         }else
-            return;
+            return false;
     }
 }

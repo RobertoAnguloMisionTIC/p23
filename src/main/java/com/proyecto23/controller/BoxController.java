@@ -26,12 +26,14 @@ public class BoxController {
         return boxImplementation.boxes();
     }
 
-//    @PutMapping("/update")
-//    public void updateBox(@RequestBody Box box){
-//        boxImplementation.update(box);
-//    }
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Box updateBox(@RequestBody Box box){
+        return boxImplementation.update(box);
+    }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBox(@PathVariable ("id") Integer id){
         boxImplementation.delete(id);
     }

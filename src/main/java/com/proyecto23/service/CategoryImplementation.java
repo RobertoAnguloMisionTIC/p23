@@ -16,7 +16,6 @@ public class CategoryImplementation implements CategoryService{
     private CategoryRepository categoryRepository;
 
     @Override
-    @Transactional
     public Category create(Category category) {
         if (category.getId() == null){
             return categoryRepository.save(category);
@@ -41,22 +40,24 @@ public class CategoryImplementation implements CategoryService{
     }
 
     @Override
-    @Transactional
-    public void update(Category category) {
-        if (categoryRepository.existsById(category.getId())){
-            categoryRepository.save(category);
-            return;
-        }else
-            return;
+    public Category update(Category category) {
+        if (category != null && category.getId() != null){
+            if (categoryRepository.existsById(category.getId())){
+                return categoryRepository.save(category);
+            }else{
+                return category;
+            }
+        }else {
+            return category;
+        }
     }
 
     @Override
-    @Transactional
-    public void delete(Integer id) {
+    public boolean delete(Integer id) {
         if(categoryRepository.existsById(id)){
             categoryRepository.deleteById(id);
-            return;
+            return true;
         }else
-            return;
+            return true;
     }
 }

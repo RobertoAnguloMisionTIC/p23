@@ -29,11 +29,13 @@ public class CategoryController {
     }
 
     @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
     public void updateCategory(@RequestBody Category category){
         categoryImplementation.update(category);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable ("id") Integer id){
         categoryImplementation.delete(id);
     }

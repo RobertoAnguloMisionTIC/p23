@@ -9,6 +9,6 @@ public interface BoxService {
     public Box create(Box box);
     public Optional<Box> getBox(Integer id);
     public List<Box> boxes();
-    public void update(Box box);
-    public void delete(Integer id);
+    public Box update(Box box);
+    public boolean delete(Integer id);
 }
