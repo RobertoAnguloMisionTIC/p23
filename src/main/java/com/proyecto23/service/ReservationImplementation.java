@@ -1,5 +1,6 @@
 package com.proyecto23.service;
 
+import com.proyecto23.model.Message;
 import com.proyecto23.model.Reservation;
 import com.proyecto23.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReservationImplementation implements ReservationService{
@@ -15,18 +17,22 @@ public class ReservationImplementation implements ReservationService{
 
     @Override
     @Transactional
-    public void create(Reservation reservation) {
-        if(reservation.getIdReservation() != null){
-            if(reservationRepository.existsById(reservation.getIdReservation())){
-                return;
-            }else{
-                reservationRepository.save(reservation);
-                return;
+    public Reservation create(Reservation reservation) {
+        if (reservation.getIdReservation() == null){
+            return reservationRepository.save(reservation);
+        }else{
+            Optional<Reservation> reservationNew = getReservation(reservation.getIdReservation());
+            if (reservationNew.isEmpty()){
+                return reservationRepository.save(reservation);
+            }else {
+                return reservation;
             }
-        }else {
-            reservationRepository.save(reservation);
-            return;
         }
+    }
+
+    @Override
+    public Optional<Reservation> getReservation(Integer id) {
+        return reservationRepository.findById(id);
     }
 
     @Override

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BoxImplementation implements BoxService{
@@ -15,18 +16,22 @@ public class BoxImplementation implements BoxService{
 
     @Override
     @Transactional
-    public void create(Box box) {
-        if(box.getId() != null){
-            if(boxRepository.existsById(box.getId())){
-                return;
-            }else{
-                boxRepository.save(box);
-                return;
+    public Box create(Box box) {
+        if (box.getId() == null){
+            return boxRepository.save(box);
+        }else{
+            Optional<Box> boxNew = getBox(box.getId());
+            if (boxNew.isEmpty()){
+                return boxRepository.save(box);
+            }else {
+                return box;
             }
-        }else {
-            boxRepository.save(box);
-            return;
         }
+    }
+
+    @Override
+    public Optional<Box> getBox(Integer id) {
+        return boxRepository.findById(id);
     }
 
     @Override

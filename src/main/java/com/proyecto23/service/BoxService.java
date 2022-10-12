@@ -3,9 +3,11 @@ package com.proyecto23.service;
 import com.proyecto23.model.Box;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BoxService {
-    public void create(Box box);
+    public Box create(Box box);
+    public Optional<Box> getBox(Integer id);
     public List<Box> boxes();
     public void update(Box box);
     public void delete(Integer id);

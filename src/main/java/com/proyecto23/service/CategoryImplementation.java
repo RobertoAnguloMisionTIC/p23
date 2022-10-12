@@ -1,5 +1,6 @@
 package com.proyecto23.service;
 
+import com.proyecto23.model.Box;
 import com.proyecto23.model.Category;
 import com.proyecto23.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryImplementation implements CategoryService{
@@ -15,18 +17,22 @@ public class CategoryImplementation implements CategoryService{
 
     @Override
     @Transactional
-    public void create(Category category) {
-        if(category.getId() != null){
-            if(categoryRepository.existsById(category.getId())){
-                return;
-            }else{
-                categoryRepository.save(category);
-                return;
+    public Category create(Category category) {
+        if (category.getId() == null){
+            return categoryRepository.save(category);
+        }else{
+            Optional<Category> categoryNew = getCategory(category.getId());
+            if (categoryNew.isEmpty()){
+                return categoryRepository.save(category);
+            }else {
+                return category;
             }
-        }else {
-            categoryRepository.save(category);
-            return;
         }
+    }
+
+    @Override
+    public Optional<Category> getCategory(Integer id) {
+        return categoryRepository.findById(id);
     }
 
     @Override
