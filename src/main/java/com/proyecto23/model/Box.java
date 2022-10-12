@@ -19,7 +19,7 @@ public class Box {
     private Integer id;
     private String name;
     private String location;
-    private String capacity;
+    private Integer capacity;
     private String description;
 
     @ManyToOne
