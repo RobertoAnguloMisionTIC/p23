@@ -5,6 +5,7 @@ import com.proyecto23.model.Reservation;
 import com.proyecto23.service.MessageImplementation;
 import com.proyecto23.service.ReservationImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class ReservationController {
     private ReservationImplementation reservationImplementation;
 
     @PostMapping("/save")
+    @ResponseStatus(HttpStatus.CREATED)
     public void createReservation(@RequestBody Reservation reservation){
         reservationImplementation.create(reservation);
     }

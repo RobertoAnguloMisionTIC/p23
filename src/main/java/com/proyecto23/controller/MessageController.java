@@ -3,6 +3,7 @@ package com.proyecto23.controller;
 import com.proyecto23.model.Message;
 import com.proyecto23.service.MessageImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class MessageController {
     private MessageImplementation messageImplementation;
 
     @PostMapping("/save")
+    @ResponseStatus(HttpStatus.CREATED)
     public void createMessage(@RequestBody Message message){
         messageImplementation.create(message);
     }

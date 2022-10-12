@@ -3,6 +3,7 @@ package com.proyecto23.controller;
 import com.proyecto23.model.Box;
 import com.proyecto23.service.BoxImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class BoxController {
     private BoxImplementation boxImplementation;
 
     @PostMapping("/save")
+    @ResponseStatus(HttpStatus.CREATED)
     public void createBox(@RequestBody Box box){
         boxImplementation.create(box);
     }
