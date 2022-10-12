@@ -19,7 +19,7 @@ public class MessageController {
         messageImplementation.create(message);
     }
 
-    @PostMapping("/all")
+    @GetMapping("/all")
     public List<Message> getMessages(){
         return messageImplementation.messages();
     }
