@@ -21,7 +21,7 @@ public class CategoryController {
         categoryImplementation.create(category);
     }
 
-    @GetMapping("/all")
+    @PostMapping("/all")
     public List<Category> getCategories(){
         return categoryImplementation.categories();
     }

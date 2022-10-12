@@ -19,7 +19,7 @@ public class BoxController {
         boxImplementation.create(box);
     }
 
-    @GetMapping("/all")
+    @PostMapping("/all")
     public List<Box> getBoxes(){
         return boxImplementation.boxes();
     }

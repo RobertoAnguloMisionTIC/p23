@@ -21,7 +21,7 @@ public class ClientController {
         clientImplementation.create(client);
     }
 
-    @GetMapping("/all")
+    @PostMapping("/all")
     public List<Client> getClients(){
         return clientImplementation.clients();
     }

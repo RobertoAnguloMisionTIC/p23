@@ -21,7 +21,7 @@ public class ReservationController {
         reservationImplementation.create(reservation);
     }
 
-    @GetMapping("/all")
+    @PostMapping("/all")
     public List<Reservation> getReservations(){
         return reservationImplementation.reservations();
     }

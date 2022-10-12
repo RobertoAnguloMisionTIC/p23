@@ -35,7 +35,7 @@ public class BoxImplementation implements BoxService{
     }
 
     @Override
-    @Transactional
+//    @Transactional
     public void update(Box box) {
         if (boxRepository.existsById(box.getId())){
             boxRepository.save(box);
@@ -45,7 +45,7 @@ public class BoxImplementation implements BoxService{
     }
 
     @Override
-    @Transactional
+//    @Transactional
     public void delete(Integer id) {
         if(boxRepository.existsById(id)){
             boxRepository.deleteById(id);
