@@ -1,12 +1,16 @@
 package com.proyecto23.service;
 
-import com.proyecto23.model.Message;
+import com.proyecto23.model.Client;
+import com.proyecto23.model.CountClient;
 import com.proyecto23.model.Reservation;
+import com.proyecto23.model.Status;
 import com.proyecto23.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,6 +74,32 @@ public class ReservationImplementation implements ReservationService{
         }else {
             return reservation;
         }
+    }
+
+    @Override
+    public List<Reservation> periodTimeReservationsReport(Date d1, Date d2) {
+        if(d1.before(d2)){
+            return reservationRepository.findAllByStartDateAfterAndStartDateBefore(d1, d2);
+        }else {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<CountClient> getTopClient() {
+        List<CountClient> topClient = new ArrayList<>();
+        List<Object[]> report = reservationRepository.reservationsCountByClient();
+        for (int i = 0; i < report.size(); i++) {
+            topClient.add(new CountClient((Long)report.get(i)[1],(Client)report.get(i)[0]));
+        }
+        return topClient;
+    }
+
+    @Override
+    public Status reservationsCountByStatus() {
+        List<Reservation> completed = reservationRepository.findAllByStatus("completed");
+        List<Reservation> cancelled = reservationRepository.findAllByStatus("cancelled");
+        return new Status(completed.size(),cancelled.size());
     }
 
     @Override

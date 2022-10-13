@@ -1,12 +1,10 @@
 package com.proyecto23.service;
 
-import com.proyecto23.model.Category;
 import com.proyecto23.model.Client;
 import com.proyecto23.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
