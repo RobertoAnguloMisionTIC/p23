@@ -8,6 +8,7 @@ import com.proyecto23.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -77,9 +78,18 @@ public class ReservationImplementation implements ReservationService{
     }
 
     @Override
-    public List<Reservation> periodTimeReservationsReport(Date d1, Date d2) {
-        if(d1.before(d2)){
-            return reservationRepository.findAllByStartDateAfterAndStartDateBefore(d1, d2);
+    public List<Reservation> periodTimeReservationsReport(String d1, String d2) {
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+        Date a = new Date();
+        Date b = new Date();
+        try{
+            a = parser.parse(d1);
+            b = parser.parse(d2);
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        if(a.before(b)){
+            return reservationRepository.findAllByStartDateAfterAndStartDateBefore(a, b);
         }else {
             return new ArrayList<>();
         }

@@ -14,7 +14,7 @@ public interface ReservationService {
     public Optional<Reservation> getReservation(Integer id);
     public List<Reservation> reservations();
     public Reservation update(Reservation reservation);
-    public List<Reservation> periodTimeReservationsReport(Date d1, Date d2);
+    public List<Reservation> periodTimeReservationsReport(String d1, String d2);
     public List<CountClient> getTopClient();
     public Status reservationsCountByStatus();
     public boolean delete(Integer id);
